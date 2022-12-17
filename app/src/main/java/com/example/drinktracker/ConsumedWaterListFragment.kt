@@ -7,22 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.drinktracker.databinding.FragmentConsumedDrinkListBinding
+import com.example.drinktracker.databinding.FragmentConsumedWaterListBinding
 
 /**
  * A [Fragment] that displays a list of consumed drinks.
  */
-class ConsumedDrinkListFragment : Fragment() {
+class ConsumedWaterListFragment : Fragment() {
 
-    private var _binding: FragmentConsumedDrinkListBinding? = null
+    private var _binding: FragmentConsumedWaterListBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentConsumedDrinkListBinding.inflate(inflater, container, false)
+        _binding = FragmentConsumedWaterListBinding.inflate(inflater, container, false)
         setupRecyclerView()
         return binding.root
     }
