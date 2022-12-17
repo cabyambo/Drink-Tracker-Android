@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="add_water_floating_action_button_margin">16dp</dimen>
+</resources>
