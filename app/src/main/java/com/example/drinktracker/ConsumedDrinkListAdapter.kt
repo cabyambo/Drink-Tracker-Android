@@ -10,7 +10,7 @@ class ConsumedDrinkListAdapter : RecyclerView.Adapter<ConsumedDrinkListAdapter.V
     private var _binding: ConsumedWaterCellBinding? = null
     private val binding get() = _binding!!
 
-    val sampleData = listOf("one", "two", "three", "four", "five")
+    val sampleData = listOf("Aquafina", "Dasani", "Zepheryhills", "Great Value", "Spring Water")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         _binding = ConsumedWaterCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Drink Tracker</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_drink_floating_action_button_content_description">Add water</string>
+    <string name="add_water_button_text">Add water</string>
 </resources>
