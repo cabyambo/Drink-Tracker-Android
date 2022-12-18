@@ -1,11 +1,14 @@
 package com.example.drinktracker.models
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.drinktracker.repository.WaterRepositoryInterface
 import com.example.drinktracker.repository.WaterRepositoryLocalStorage
 import com.example.drinktracker.service.InternalStorageService
@@ -28,17 +31,14 @@ class WaterViewModel(
     }
 
     companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>, extras: CreationExtras
-            ): T {
-                val application = checkNotNull(extras[APPLICATION_KEY])
+        val Factory : ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = checkNotNull(this[APPLICATION_KEY] as Application)
                 val internalStorageService: InternalStorageService =
                     InternalStorageService(application)
                 val waterRepositoryLocalStorage: WaterRepositoryInterface =
                     WaterRepositoryLocalStorage(internalStorageService)
-                return WaterViewModel(waterRepositoryLocalStorage) as T
+                WaterViewModel(waterRepositoryLocalStorage)
             }
         }
     }
