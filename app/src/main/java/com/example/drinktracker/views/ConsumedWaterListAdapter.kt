@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drinktracker.databinding.ConsumedWaterCellBinding
 
-class ConsumedDrinkListAdapter : RecyclerView.Adapter<ConsumedDrinkListAdapter.ViewHolder>() {
+class ConsumedWaterListAdapter : RecyclerView.Adapter<ConsumedWaterListAdapter.ViewHolder>() {
 
     private var _binding: ConsumedWaterCellBinding? = null
     private val binding get() = _binding!!

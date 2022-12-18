@@ -35,7 +35,7 @@ class ConsumedWaterListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        val adapter = ConsumedDrinkListAdapter()
+        val adapter = ConsumedWaterListAdapter()
         val itemDecoration = DividerItemDecoration(requireContext(), layoutManager.orientation)
         requireContext().getDrawable(R.drawable.consumed_drink_item_decoration_background)
             ?.let { itemDecoration.setDrawable(it) }

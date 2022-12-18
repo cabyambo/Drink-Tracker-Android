@@ -23,6 +23,10 @@ class WaterViewModel(
         water.value = waterRepository.getAllWaterForUser("id")
     }
 
+    init {
+        getAllWater()
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
