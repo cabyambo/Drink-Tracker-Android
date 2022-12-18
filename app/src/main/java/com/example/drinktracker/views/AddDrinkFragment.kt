@@ -7,19 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.drinktracker.R
 import com.example.drinktracker.databinding.FragmentAddDrinkBinding
 import com.example.drinktracker.models.BottleType
 import com.example.drinktracker.models.Unit
 import com.example.drinktracker.models.Water
+import com.example.drinktracker.models.WaterViewModel
 import com.example.drinktracker.service.InternalStorageService
 
 class AddDrinkFragment : DialogFragment() {
 
-    private lateinit var internalStorageService: InternalStorageService
     private var _binding: FragmentAddDrinkBinding? = null
-    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var internalStorageService: InternalStorageService
+    private lateinit var viewModel: WaterViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +29,10 @@ class AddDrinkFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddDrinkBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            WaterViewModel.Factory
+        ).get(WaterViewModel::class.java)
         return binding.root
     }
 
@@ -66,7 +72,6 @@ class AddDrinkFragment : DialogFragment() {
             allWater.forEach {
                 Log.d("yest", it.toString())
             }
-
         }
     }
 

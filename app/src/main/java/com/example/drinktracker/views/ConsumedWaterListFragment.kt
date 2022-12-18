@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drinktracker.R
 import com.example.drinktracker.databinding.FragmentConsumedWaterListBinding
+import com.example.drinktracker.models.Water
+import com.example.drinktracker.models.WaterViewModel
 
 /**
  * A [Fragment] that displays a list of consumed drinks.
@@ -17,6 +20,7 @@ class ConsumedWaterListFragment : Fragment() {
 
     private var _binding: FragmentConsumedWaterListBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: WaterViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,9 +28,12 @@ class ConsumedWaterListFragment : Fragment() {
     ): View? {
         _binding = FragmentConsumedWaterListBinding.inflate(inflater, container, false)
         setupRecyclerView()
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            WaterViewModel.Factory
+        ).get(WaterViewModel::class.java)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
