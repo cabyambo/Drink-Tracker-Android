@@ -1,4 +1,4 @@
-package com.example.drinktracker
+package com.example.drinktracker.views
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
