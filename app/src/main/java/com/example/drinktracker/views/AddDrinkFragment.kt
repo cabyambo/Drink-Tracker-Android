@@ -67,11 +67,11 @@ class AddDrinkFragment : DialogFragment() {
                 "Aquafina",
                 BottleType(8f, Unit.OUNCE)
             )
-            //internalStorageService.addWater(water)
-            val allWater = internalStorageService.getAllWater()
-            allWater.forEach {
-                Log.d("yest", it.toString())
-            }
+            internalStorageService.addWater(water)
+//            val allWater = internalStorageService.getAllWater()
+//            allWater.forEach {
+//                Log.d("yest", it.toString())
+//            }
         }
     }
 
