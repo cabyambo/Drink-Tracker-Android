@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".AddDrinkFragment">
+    tools:context=".views.AddDrinkFragment">
 
     <Spinner
         android:id="@+id/water_bottle_brand_spinner"
@@ -40,7 +40,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="VERY LONG BUTTON"
+        android:text="@string/add_water_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

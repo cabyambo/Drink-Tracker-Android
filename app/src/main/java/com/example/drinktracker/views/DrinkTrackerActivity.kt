@@ -1,14 +1,12 @@
-package com.example.drinktracker
+package com.example.drinktracker.views
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.drinktracker.databinding.ActivityDrinkTrackerBinding
+import com.example.drinktracker.models.Water
 
-class DrinkTrackerActivity : AppCompatActivity() {
+class DrinkTrackerActivity : AppCompatActivity(), AddDrinkFragment.EventListener {
 
     private lateinit var binding: ActivityDrinkTrackerBinding
 
@@ -26,7 +24,8 @@ class DrinkTrackerActivity : AppCompatActivity() {
     private fun showAddWaterFragment() {
         val transaction = supportFragmentManager.beginTransaction()
         val currentDrinkFragment: Fragment? = supportFragmentManager.findFragmentByTag(
-            ADD_WATER_FRAGMENT_TAG)
+            ADD_WATER_FRAGMENT_TAG
+        )
         currentDrinkFragment?.let {
             transaction.remove(it)
         }
@@ -38,5 +37,9 @@ class DrinkTrackerActivity : AppCompatActivity() {
 
     companion object {
         const val ADD_WATER_FRAGMENT_TAG = "add_water_fragment_tag"
+    }
+
+    override fun onAddWaterClick(water: Water) {
+        TODO("Not yet implemented")
     }
 }
