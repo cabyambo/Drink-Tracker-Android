@@ -1,4 +1,4 @@
-package com.example.drinktracker.service
+package com.example.drinktracker.service.localstorage
 
 import android.app.Application
 import android.util.Log
@@ -8,7 +8,7 @@ import com.example.drinktracker.models.Water
 import com.google.gson.Gson
 import java.io.*
 
-class InternalStorageService(
+class InternalConsumptionStorageService(
     private val context: Application
 ) {
     fun getAllWater() : Array<Water> {
@@ -50,9 +50,5 @@ class InternalStorageService(
         } catch (e: IOException) {
             throw IOException("Error adding water to internal storage.", e)
         }
-    }
-
-    fun getBottleTypesForBrand(brand: String) : Array<BottleType> {
-        return emptyArray()
     }
 }

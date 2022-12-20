@@ -1,10 +1,9 @@
-package com.example.drinktracker.repository
+package com.example.drinktracker.repository.definitions
 
 import com.example.drinktracker.models.BottleType
 import com.example.drinktracker.models.Water
 
-interface WaterRepositoryInterface {
+interface WaterConsumptionRepositoryInterface {
     fun getAllWaterForUser(id: String): Array<Water>
-    fun getBottleTypesForCompany(company: String): Array<BottleType>
     fun addWaterToUser(id: String, water: Water)
 }
