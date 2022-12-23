@@ -64,6 +64,8 @@ class WaterViewModel(
     }
 
     fun setSelectedCompanyIndex(index: Int) {
+        // If already selected item isn't being re-selected,
+        // set the size index to the "start"
         if (index != selectedCompanyIndex) {
             selectedBottleSizeIndex = 0
         }
