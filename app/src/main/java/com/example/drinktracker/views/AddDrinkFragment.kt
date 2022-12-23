@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.SpinnerAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.drinktracker.databinding.FragmentAddDrinkBinding
@@ -41,20 +42,44 @@ class AddDrinkFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Spinner adapters
-        binding.waterBottleBrandSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                viewModel.setSelectedWaterIndex(p2)
-                viewModel.fetchBottleTypes(p2)
-            }
+        setViewModelObservers()
+        setClickListeners()
+    }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+    private fun setViewModelObservers() {
+        // Water company names.
+        // Only gets updated when the view models init method is called.
+        viewModel.companyNamesLiveData.observe(this) { namesArray ->
+            ArrayAdapter(
+                requireContext(),
+                R.layout.simple_spinner_dropdown_item,
+                namesArray
+            ).also {
+                binding.waterBottleBrandSpinner.adapter = it
+                viewModel.getSelectedCompanyIndex()?.let { selected ->
+                    binding.waterBottleBrandSpinner.setSelection(selected)
+                }
             }
         }
 
-        // observe the view model
-        setViewModelObservers()
+        // Water company bottle sizes
+        viewModel.bottleSizesLiveData.observe(this) { bottleSizes ->
+            ArrayAdapter(
+                requireContext(),
+                R.layout.simple_spinner_dropdown_item,
+                bottleSizes
+            ).also {
+                binding.waterBottleSizeSpinner.adapter = it
+                viewModel.getSelectedBottleSizeIndex()?.let { selected ->
+                    binding.waterBottleSizeSpinner.setSelection(selected)
+                }
+            }
+        }
+    }
+
+    private fun setClickListeners() {
+        binding.waterBottleBrandSpinner.onItemSelectedListener = brandSpinnerClickListener
+        binding.waterBottleSizeSpinner.onItemSelectedListener = bottleSizeSpinnerClickListener
 
         binding.addWaterButton.setOnClickListener {
             Log.d("yest", "clicked")
@@ -65,34 +90,25 @@ class AddDrinkFragment : DialogFragment() {
         }
     }
 
-    private fun setViewModelObservers() {
-
-        // Water company names
-        viewModel.waterCompanyNamesLiveData.observe(this) { namesArray ->
-            ArrayAdapter(
-                requireContext(),
-                R.layout.simple_spinner_dropdown_item,
-                namesArray
-            ).also {
-                binding.waterBottleBrandSpinner.adapter = it
-                viewModel.getSelectedWaterBrandIndex()?.let { selectedItemIndex ->
-                    binding.waterBottleBrandSpinner.setSelection(selectedItemIndex)
-                }
-            }
+    private val brandSpinnerClickListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+            viewModel.setSelectedCompanyIndex(p2)
+            // Fetch the new Sizes that correspond to the new brand
+            viewModel.fetchBottleSizes()
         }
 
-        // Water company bottle sizes
-        viewModel.bottleTypesLiveData.observe(this) { bottleTypes ->
-            ArrayAdapter(
-                requireContext(),
-                R.layout.simple_spinner_dropdown_item,
-                bottleTypes
-            ).also {
-                binding.waterBottleSizeSpinner.adapter = it
-//                viewModel.getSelectedWaterBrandIndex()?.let { selectedItemIndex ->
-//                    binding.waterBottleBrandSpinner.setSelection(selectedItemIndex)
-//                }
-            }
+        override fun onNothingSelected(p0: AdapterView<*>?) {
+            TODO("Not yet implemented")
+        }
+    }
+
+    private val bottleSizeSpinnerClickListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+            viewModel.setSelectedBottleSizeIndex(p2)
+        }
+
+        override fun onNothingSelected(p0: AdapterView<*>?) {
+            TODO("Not yet implemented")
         }
     }
 

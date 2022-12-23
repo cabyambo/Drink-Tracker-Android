@@ -20,21 +20,22 @@ class WaterViewModel(
     private val waterCompanyRepository: WaterCompanyRepositoryInterface
 ) : ViewModel() {
     private val water = MutableLiveData<Array<Water>>()
-    private val waterCompanyNames = MutableLiveData<Array<String>>()
+    private val companyNames = MutableLiveData<Array<String>>()
     private val bottleTypes = MutableLiveData<Array<BottleType>>()
 
     val waterLiveDate: LiveData<Array<Water>>
         get() = water
-    val waterCompanyNamesLiveData: LiveData<Array<String>>
-        get() = waterCompanyNames
-    val bottleTypesLiveData: LiveData<Array<BottleType>>
+    val companyNamesLiveData: LiveData<Array<String>>
+        get() = companyNames
+    val bottleSizesLiveData: LiveData<Array<BottleType>>
         get() = bottleTypes
 
-    private var selectedWaterIndex: Int? = null
+    private var selectedCompanyIndex: Int? = null
+    private var selectedBottleSizeIndex: Int? = null
 
     init {
         fetchAllWater()
-        fetchWaterCompanyNames()
+        fetchCompanyNames()
     }
 
     private fun fetchAllWater() {
@@ -43,24 +44,34 @@ class WaterViewModel(
         water.value = waterConsumptionRepository.getAllWaterForUser("id")
     }
 
-    private fun fetchWaterCompanyNames() {
-        waterCompanyNames.value = waterCompanyRepository.getAllCompanyNames().sortedArray()
+    private fun fetchCompanyNames() {
+        companyNames.value = waterCompanyRepository.getAllCompanyNames().sortedArray()
     }
 
-
-    fun fetchBottleTypes(index: Int) {
-        if (selectedWaterIndex == null || waterCompanyNames.value == null) {
+    fun fetchBottleSizes() {
+        if (selectedCompanyIndex == null || companyNames.value == null) {
             return
         }
-        bottleTypes.value = waterCompanyRepository.getBottleTypesForCompany(waterCompanyNames.value!!.elementAt(index))
+        bottleTypes.value = waterCompanyRepository.getBottleTypesForCompany(companyNames.value!!.elementAt(selectedCompanyIndex!!))
     }
 
-    fun getSelectedWaterBrandIndex(): Int? {
-        return selectedWaterIndex
+    fun getSelectedCompanyIndex(): Int? {
+        return selectedCompanyIndex
     }
 
-    fun setSelectedWaterIndex(index: Int) {
-        selectedWaterIndex = index
+    fun getSelectedBottleSizeIndex(): Int? {
+        return selectedBottleSizeIndex
+    }
+
+    fun setSelectedCompanyIndex(index: Int) {
+        if (index != selectedCompanyIndex) {
+            selectedBottleSizeIndex = 0
+        }
+        selectedCompanyIndex = index
+    }
+
+    fun setSelectedBottleSizeIndex(index: Int) {
+        selectedBottleSizeIndex = index
     }
 
     /**
