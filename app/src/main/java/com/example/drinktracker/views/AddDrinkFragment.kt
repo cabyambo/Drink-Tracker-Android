@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.SpinnerAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.drinktracker.databinding.FragmentAddDrinkBinding
@@ -82,11 +81,25 @@ class AddDrinkFragment : DialogFragment() {
         binding.waterBottleSizeSpinner.onItemSelectedListener = bottleSizeSpinnerClickListener
 
         binding.addWaterButton.setOnClickListener {
-            Log.d("yest", "clicked")
-            val water = Water(
-                "Aquafina",
-                BottleType(8f, Unit.OUNCE)
-            )
+            var water: Water?
+            try {
+                val companyName: String =
+                    viewModel.companyNamesLiveData.value!![viewModel.getSelectedCompanyIndex()!!]
+                val bottleSize: BottleSize =
+                    viewModel.bottleSizesLiveData.value!![viewModel.getSelectedBottleSizeIndex()!!]
+                water = Water(
+                    companyName,
+                    bottleSize
+                )
+            } catch (e: java.lang.NullPointerException) {
+                throw java.lang.Exception(
+                    "Encountered a null pointer while accessing the water entered by the user.",
+                    e
+                )
+            }
+            water.let {
+                viewModel.addWaterToUser(water)
+            }
         }
     }
 

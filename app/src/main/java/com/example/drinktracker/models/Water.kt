@@ -4,7 +4,7 @@ import com.google.gson.Gson
 
 data class Water(
     val companyName: String,
-    val bottleType: BottleType
+    val bottleSize: BottleSize
 ) {
     override fun toString(): String {
         val gson = Gson()

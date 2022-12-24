@@ -1,6 +1,6 @@
 package com.example.drinktracker.models
 
-data class BottleType(
+data class BottleSize(
     val size: Float,
     val unit: Unit
 ) {

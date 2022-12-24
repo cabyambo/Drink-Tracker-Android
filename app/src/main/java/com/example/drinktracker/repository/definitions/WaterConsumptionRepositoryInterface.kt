@@ -1,6 +1,5 @@
 package com.example.drinktracker.repository.definitions
 
-import com.example.drinktracker.models.BottleType
 import com.example.drinktracker.models.Water
 
 interface WaterConsumptionRepositoryInterface {

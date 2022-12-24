@@ -1,6 +1,6 @@
 package com.example.drinktracker.repository.localstorage
 
-import com.example.drinktracker.models.BottleType
+import com.example.drinktracker.models.BottleSize
 import com.example.drinktracker.models.WaterCompany
 import com.example.drinktracker.repository.definitions.WaterCompanyRepositoryInterface
 import com.example.drinktracker.service.localstorage.InternalCompanyStorageService
@@ -15,13 +15,13 @@ class WaterCompanyRepositoryLocalStorage(
         return waterCompanies.map { it.companyName }.toTypedArray()
     }
 
-    override fun getBottleTypesForCompany(companyName: String): Array<BottleType> {
+    override fun getBottleSizesForCompany(companyName: String): Array<BottleSize> {
         val waterCompanies: Array<WaterCompany> = internalCompanyStorageService.getAllWaterCompanies()
-        return waterCompanies.filter { it.companyName == companyName }.first().bottleTypes
+        return waterCompanies.filter { it.companyName == companyName }.first().bottleSizes
     }
 
-    override fun getAllBottleTypes(): Array<BottleType> {
+    override fun getAllBottleSizes(): Array<BottleSize> {
         val waterCompanies: Array<WaterCompany> = internalCompanyStorageService.getAllWaterCompanies()
-        return waterCompanies.flatMap { it.bottleTypes.asIterable() }.toTypedArray()
+        return waterCompanies.flatMap { it.bottleSizes.asIterable() }.toTypedArray()
     }
 }

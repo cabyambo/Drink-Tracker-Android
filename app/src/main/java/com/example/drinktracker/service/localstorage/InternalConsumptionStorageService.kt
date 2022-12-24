@@ -3,7 +3,6 @@ package com.example.drinktracker.service.localstorage
 import android.app.Application
 import android.util.Log
 import com.example.drinktracker.utils.Constants
-import com.example.drinktracker.models.BottleType
 import com.example.drinktracker.models.Water
 import com.google.gson.Gson
 import java.io.*
@@ -28,6 +27,7 @@ class InternalConsumptionStorageService(
                 val water = gson.fromJson(it, Water::class.java)
                 waterList.add(water)
             }
+            fileReader.close()
             return waterList.toTypedArray()
         } catch (e: IOException) {
             throw IOException("Error reading water from internal storage.", e)
@@ -37,7 +37,6 @@ class InternalConsumptionStorageService(
 
     fun addWater(water: Water) {
         try {
-            Log.d("yest", context.filesDir.toString())
             val directory = File(context.filesDir, Constants.LOCAL_STORAGE_WATER_DIRECTORY_NAME)
             if (!directory.exists()) {
                 directory.mkdir()

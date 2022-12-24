@@ -2,7 +2,7 @@ package com.example.drinktracker.models
 
 data class WaterCompany(
     val companyName: String,
-    val bottleTypes: Array<BottleType>
+    val bottleSizes: Array<BottleSize>
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -11,14 +11,14 @@ data class WaterCompany(
         other as WaterCompany
 
         if (companyName != other.companyName) return false
-        if (!bottleTypes.contentEquals(other.bottleTypes)) return false
+        if (!bottleSizes.contentEquals(other.bottleSizes)) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = companyName.hashCode()
-        result = 31 * result + bottleTypes.contentHashCode()
+        result = 31 * result + bottleSizes.contentHashCode()
         return result
     }
 }

@@ -21,13 +21,13 @@ class WaterViewModel(
 ) : ViewModel() {
     private val water = MutableLiveData<Array<Water>>()
     private val companyNames = MutableLiveData<Array<String>>()
-    private val bottleTypes = MutableLiveData<Array<BottleType>>()
+    private val bottleTypes = MutableLiveData<Array<BottleSize>>()
 
-    val waterLiveDate: LiveData<Array<Water>>
+    val waterLiveData: LiveData<Array<Water>>
         get() = water
     val companyNamesLiveData: LiveData<Array<String>>
         get() = companyNames
-    val bottleSizesLiveData: LiveData<Array<BottleType>>
+    val bottleSizesLiveData: LiveData<Array<BottleSize>>
         get() = bottleTypes
 
     private var selectedCompanyIndex: Int? = null
@@ -52,7 +52,7 @@ class WaterViewModel(
         if (selectedCompanyIndex == null || companyNames.value == null) {
             return
         }
-        bottleTypes.value = waterCompanyRepository.getBottleTypesForCompany(companyNames.value!!.elementAt(selectedCompanyIndex!!))
+        bottleTypes.value = waterCompanyRepository.getBottleSizesForCompany(companyNames.value!!.elementAt(selectedCompanyIndex!!))
     }
 
     fun getSelectedCompanyIndex(): Int? {
@@ -74,6 +74,11 @@ class WaterViewModel(
 
     fun setSelectedBottleSizeIndex(index: Int) {
         selectedBottleSizeIndex = index
+    }
+
+    fun addWaterToUser(water: Water) {
+        val id = "id"
+        waterConsumptionRepository.addWaterToUser(id, water)
     }
 
     /**
