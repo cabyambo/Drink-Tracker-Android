@@ -9,7 +9,6 @@ import com.example.drinktracker.models.Water
 
 class ConsumedWaterListAdapter : RecyclerView.Adapter<ConsumedWaterListAdapter.ViewHolder>() {
 
-    private val sampleData = listOf("Aquafina", "Dasani", "Zepheryhills", "Great Value", "Spring Water")
     private var water: Array<Water> = emptyArray()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,7 +17,9 @@ class ConsumedWaterListAdapter : RecyclerView.Adapter<ConsumedWaterListAdapter.V
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.consumedWaterNameTextView.text = water[position].companyName
+        "${water[position].companyName} - size: ${water[position].bottleSize.size} ${water[position].bottleSize.unit.unitString}".also {
+            holder.consumedWaterNameTextView.text = it
+        }
     }
 
     override fun getItemCount(): Int {

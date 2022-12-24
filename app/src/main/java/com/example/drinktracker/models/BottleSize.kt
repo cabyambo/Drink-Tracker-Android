@@ -5,6 +5,6 @@ data class BottleSize(
     val unit: Unit
 ) {
     override fun toString(): String {
-        return "$size ${unit.string}"
+        return "$size ${unit.unitString}"
     }
 }

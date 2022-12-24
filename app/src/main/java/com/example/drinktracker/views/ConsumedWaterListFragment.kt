@@ -1,7 +1,6 @@
 package com.example.drinktracker.views
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +38,13 @@ class ConsumedWaterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViewModelObservers()
+        setOnRefreshListener()
+    }
+
+    private fun setOnRefreshListener() {
+        binding.swipeRefreshContainer.setOnRefreshListener {
+            viewModel.refreshConsumedWater()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -62,6 +68,11 @@ class ConsumedWaterListFragment : Fragment() {
             val adapter: ConsumedWaterListAdapter =
                 binding.consumedWaterRecyclerView.adapter as ConsumedWaterListAdapter
             adapter.updateWater(water)
+        }
+
+        viewModel.isRefreshingLiveData.observe(viewLifecycleOwner) { refreshing ->
+            binding.swipeRefreshContainer.isRefreshing = refreshing
+            binding.swipeRefreshContainer.alpha = if (refreshing) 0.5F else 1F
         }
     }
 

@@ -100,6 +100,9 @@ class AddDrinkFragment : DialogFragment() {
             water.let {
                 viewModel.addWaterToUser(water)
             }
+            viewModel.setSelectedCompanyIndex(0)
+            viewModel.setSelectedBottleSizeIndex(0)
+            dismiss()
         }
     }
 

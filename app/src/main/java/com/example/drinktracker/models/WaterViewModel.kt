@@ -22,6 +22,7 @@ class WaterViewModel(
     private val water = MutableLiveData<Array<Water>>()
     private val companyNames = MutableLiveData<Array<String>>()
     private val bottleTypes = MutableLiveData<Array<BottleSize>>()
+    private val isRefreshing = MutableLiveData<Boolean>()
 
     val waterLiveData: LiveData<Array<Water>>
         get() = water
@@ -29,12 +30,14 @@ class WaterViewModel(
         get() = companyNames
     val bottleSizesLiveData: LiveData<Array<BottleSize>>
         get() = bottleTypes
+    val isRefreshingLiveData: LiveData<Boolean>
+        get() = isRefreshing
 
     private var selectedCompanyIndex: Int? = null
     private var selectedBottleSizeIndex: Int? = null
 
     init {
-        fetchAllWater()
+        refreshConsumedWater()
         fetchCompanyNames()
     }
 
@@ -52,7 +55,9 @@ class WaterViewModel(
         if (selectedCompanyIndex == null || companyNames.value == null) {
             return
         }
-        bottleTypes.value = waterCompanyRepository.getBottleSizesForCompany(companyNames.value!!.elementAt(selectedCompanyIndex!!))
+        bottleTypes.value = waterCompanyRepository.getBottleSizesForCompany(
+            companyNames.value!!.elementAt(selectedCompanyIndex!!)
+        )
     }
 
     fun getSelectedCompanyIndex(): Int? {
@@ -79,6 +84,12 @@ class WaterViewModel(
     fun addWaterToUser(water: Water) {
         val id = "id"
         waterConsumptionRepository.addWaterToUser(id, water)
+    }
+
+    fun refreshConsumedWater() {
+        isRefreshing.value = true
+        fetchAllWater()
+        isRefreshing.value = false
     }
 
     /**
